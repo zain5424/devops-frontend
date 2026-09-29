@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CloudFlow — DevOps Platform</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,sans-serif;
+    color:#172033;
+    background:
+        radial-gradient(circle at 10% 10%, #dff4ff 0%, transparent 28%),
+        radial-gradient(circle at 90% 15%, #f4ddff 0%, transparent 30%),
+        radial-gradient(circle at 50% 90%, #dfffe9 0%, transparent 25%),
+        #f8fbff;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+    overflow:hidden;
+}
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(70px);
+    opacity:.45;
+    animation:float 12s infinite ease-in-out;
+}
+
+.blob.one{
+    width:300px;
+    height:300px;
+    background:#9b8cff;
+    top:5%;
+    left:-100px;
+}
+
+.blob.two{
+    width:350px;
+    height:350px;
+    background:#64d9ff;
+    right:-100px;
+    top:30%;
+    animation-delay:2s;
+}
+
+.blob.three{
+    width:280px;
+    height:280px;
+    background:#ff9fd8;
+    bottom:0;
+    left:40%;
+    animation-delay:4s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translate(0,0);
+    }
+    50%{
+        transform:translate(30px,-40px);
+    }
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+    position:fixed;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1150px,92%);
+    height:70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 25px;
+
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.8);
+    border-radius:22px;
+
+    box-shadow:
+        0 20px 60px rgba(73,84,120,.12);
+
+    z-index:100;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-family:"Space Grotesk";
+    font-weight:700;
+    font-size:21px;
+}
+
+.logo-icon{
+    width:38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(135deg,#7567ff,#45d9ff);
+
+    color:white;
+
+    box-shadow:
+        0 8px 25px rgba(94,103,255,.35);
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+}
+
+.nav-links a{
+    color:#536078;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#6658e8;
+}
+
+.nav-btn{
+    border:none;
+    padding:12px 18px;
+    border-radius:12px;
+
+    color:white;
+    font-weight:700;
+
+    background:
+        linear-gradient(135deg,#695cff,#43cfff);
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 25px rgba(92,101,255,.25);
+
+    transition:.3s;
+}
+
+.nav-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:850px;
+
+    max-width:1200px;
+    margin:auto;
+
+    padding:
+        170px 25px
+        80px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:70px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:9px 14px;
+
+    background:white;
+
+    border:1px solid #e8eaff;
+
+    border-radius:50px;
+
+    color:#6658e8;
+
+    font-size:13px;
+    font-weight:700;
+
+    box-shadow:0 8px 30px rgba(80,90,140,.08);
+}
+
+.badge span{
+    width:8px;
+    height:8px;
+
+    background:#35d399;
+
+    border-radius:50%;
+
+    box-shadow:0 0 12px #35d399;
+}
+
+.hero h1{
+    font-family:"Space Grotesk";
+
+    font-size:clamp(50px,6vw,82px);
+
+    line-height:.98;
+
+    margin:25px 0;
+
+    letter-spacing:-4px;
+}
+
+.gradient-text{
+    background:
+        linear-gradient(
+            90deg,
+            #6555ed,
+            #35bdf4,
+            #ec65bc
+        );
+
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:570px;
+
+    font-size:18px;
+    line-height:1.7;
+
+    color:#647087;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    margin-top:32px;
+}
+
+.primary{
+    padding:15px 22px;
+
+    border:none;
+    border-radius:14px;
+
+    color:white;
+
+    font-weight:700;
+
+    background:
+        linear-gradient(135deg,#6858ef,#42c9f4);
+
+    box-shadow:
+        0 15px 35px rgba(88,92,239,.3);
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.primary:hover{
+    transform:translateY(-3px) scale(1.02);
+}
+
+.secondary{
+    padding:15px 22px;
+
+    border:1px solid #e3e6f1;
+
+    border-radius:14px;
+
+    background:white;
+
+    color:#37425a;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.secondary:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================
+   CLOUD VISUAL
+========================= */
+
+.cloud-scene{
+    position:relative;
+    height:520px;
+}
+
+.cloud{
+    position:absolute;
+
+    width:360px;
+    height:210px;
+
+    top:110px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    border-radius:
+        100px 100px 60px 60px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.95),
+            rgba(231,242,255,.8)
+        );
+
+    border:1px solid white;
+
+    box-shadow:
+        0 40px 80px rgba(79,105,170,.2);
+
+    animation:cloudFloat 5s infinite ease-in-out;
+}
+
+.cloud:before,
+.cloud:after{
+    content:"";
+    position:absolute;
+
+    background:white;
+
+    border-radius:50%;
+}
+
+.cloud:before{
+    width:150px;
+    height:150px;
+
+    left:65px;
+    top:-70px;
+}
+
+.cloud:after{
+    width:110px;
+    height:110px;
+
+    right:60px;
+    top:-45px;
+}
+
+@keyframes cloudFloat{
+    0%,100%{
+        transform:translate(-50%,0);
+    }
+    50%{
+        transform:translate(-50%,-15px);
+    }
+}
+
+.server{
+    position:absolute;
+
+    z-index:4;
+
+    width:150px;
+    height:95px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #edf2ff
+        );
+
+    border:1px solid #e3e9ff;
+
+    box-shadow:
+        0 20px 40px rgba(64,84,140,.16);
+}
+
+.server h4{
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.server-line{
+    height:7px;
+    background:#dfe6f4;
+    border-radius:20px;
+    margin:6px 0;
+}
+
+.server-line:nth-child(2){
+    width:80%;
+    background:#7a6cff;
+}
+
+.server-line:nth-child(3){
+    width:55%;
+    background:#43c9ef;
+}
+
+.server.one{
+    top:30px;
+    left:10px;
+    transform:rotate(-8deg);
+}
+
+.server.two{
+    bottom:45px;
+    right:0;
+    transform:rotate(7deg);
+}
+
+.docker{
+    position:absolute;
+
+    width:75px;
+    height:75px;
+
+    border-radius:20px;
+
+    display:grid;
+    place-items:center;
+
+    background:
+        linear-gradient(135deg,#48cfff,#4d8dff);
+
+    color:white;
+
+    font-size:30px;
+
+    box-shadow:
+        0 20px 40px rgba(60,145,255,.3);
+
+    z-index:5;
+
+    animation:dockerFloat 4s infinite ease-in-out;
+}
+
+.docker.one{
+    top:10px;
+    right:60px;
+}
+
+.docker.two{
+    bottom:20px;
+    left:40px;
+    animation-delay:1s;
+}
+
+@keyframes dockerFloat{
+    0%,100%{
+        transform:translateY(0) rotate(0);
+    }
+    50%{
+        transform:translateY(-15px) rotate(5deg);
+    }
+}
+
+.connection{
+    position:absolute;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8c7cff,
+            #45cfff
+        );
+
+    transform-origin:left;
+
+    opacity:.6;
+}
+
+.connection.one{
+    width:220px;
+    top:100px;
+    left:140px;
+    transform:rotate(15deg);
+}
+
+.connection.two{
+    width:200px;
+    top:270px;
+    right:90px;
+    transform:rotate(-25deg);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    max-width:1150px;
+
+    margin:-40px auto 100px;
+
+    padding:0 25px;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+}
+
+.stat{
+    padding:25px;
+
+    background:
+        rgba(255,255,255,.7);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid white;
+
+    border-radius:22px;
+
+    box-shadow:
+        0 20px 50px rgba(65,77,120,.08);
+
+    transition:.3s;
+}
+
+.stat:hover{
+    transform:translateY(-7px);
+}
+
+.stat-icon{
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+.stat strong{
+    display:block;
+
+    font-size:31px;
+
+    font-family:"Space Grotesk";
+}
+
+.stat small{
+    color:#7b8499;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    max-width:1150px;
+
+    margin:auto;
+
+    padding:110px 25px;
+}
+
+.section-heading{
+    text-align:center;
+
+    margin-bottom:60px;
+}
+
+.section-heading span{
+    color:#6b5bea;
+
+    font-weight:700;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.section-heading h2{
+    font-family:"Space Grotesk";
+
+    font-size:48px;
+
+    margin-top:12px;
+
+    letter-spacing:-2px;
+}
+
+.section-heading p{
+    color:#778196;
+
+    max-width:600px;
+
+    margin:15px auto;
+
+    line-height:1.7;
+}
+
+/* =========================
+   PIPELINE
+========================= */
+
+.pipeline{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:15px;
+
+    position:relative;
+}
+
+.pipeline:before{
+    content:"";
+
+    position:absolute;
+
+    height:4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #705cff,
+            #45d2ef,
+            #ec6ac1
+        );
+
+    left:8%;
+    right:8%;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    z-index:0;
+
+    border-radius:10px;
+}
+
+.pipeline-card{
+    position:relative;
+    z-index:2;
+
+    text-align:center;
+
+    padding:28px 15px;
+
+    background:white;
+
+    border:1px solid #edf0f7;
+
+    border-radius:24px;
+
+    box-shadow:
+        0 15px 45px rgba(70,85,130,.09);
+
+    transition:.4s;
+}
+
+.pipeline-card:hover{
+    transform:translateY(-12px);
+}
+
+.pipeline-icon{
+    width:70px;
+    height:70px;
+
+    margin:auto auto 17px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:20px;
+
+    font-size:28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eeeaff,
+            #e2f8ff
+        );
+}
+
+.pipeline-card h3{
+    font-size:16px;
+}
+
+.pipeline-card p{
+    margin-top:8px;
+
+    font-size:12px;
+
+    color:#8991a4;
+}
+
+/* =========================
+   ARCHITECTURE
+========================= */
+
+.architecture{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:35px;
+
+    align-items:center;
+}
+
+.arch-text h2{
+    font-family:"Space Grotesk";
+
+    font-size:45px;
+
+    margin-bottom:20px;
+}
+
+.arch-text p{
+    color:#69748a;
+
+    line-height:1.8;
+
+    margin-bottom:25px;
+}
+
+.arch-list{
+    display:grid;
+    gap:14px;
+}
+
+.arch-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    background:white;
+
+    box-shadow:0 10px 30px rgba(70,85,130,.07);
+}
+
+.arch-item-icon{
+    width:40px;
+    height:40px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:#eeeaff;
+}
+
+.arch-visual{
+    min-height:480px;
+
+    position:relative;
+
+    border-radius:35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f2efff,
+            #e9faff
+        );
+
+    border:1px solid white;
+
+    box-shadow:
+        0 30px 70px rgba(71,89,150,.12);
+
+    overflow:hidden;
+}
+
+.arch-node{
+    position:absolute;
+
+    width:140px;
+    height:90px;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    background:white;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 15px 40px rgba(62,81,135,.13);
+
+    font-weight:700;
+
+    z-index:2;
+}
+
+.arch-node small{
+    margin-top:5px;
+    color:#8a93a7;
+    font-size:10px;
+}
+
+.node-git{
+    left:40px;
+    top:80px;
+}
+
+.node-ci{
+    right:40px;
+    top:80px;
+}
+
+.node-k8s{
+    left:50%;
+    transform:translateX(-50%);
+    top:195px;
+}
+
+.node-cloud{
+    left:50%;
+    transform:translateX(-50%);
+    bottom:45px;
+}
+
+.arch-line{
+    position:absolute;
+
+    height:3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6d5bf0,
+            #43c9ee
+        );
+
+    z-index:1;
+}
+
+.line-one{
+    width:180px;
+    top:125px;
+    left:170px;
+}
+
+.line-two{
+    width:180px;
+    top:125px;
+    right:170px;
+}
+
+.line-three{
+    width:3px;
+    height:100px;
+    left:50%;
+    top:285px;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.features{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:22px;
+}
+
+.feature{
+    padding:30px;
+
+    background:white;
+
+    border-radius:25px;
+
+    border:1px solid #edf0f7;
+
+    box-shadow:
+        0 20px 50px rgba(70,85,130,.07);
+
+    transition:.35s;
+}
+
+.feature:hover{
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 25px 60px rgba(70,85,130,.13);
+}
+
+.feature-icon{
+    width:55px;
+    height:55px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:24px;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e9e5ff,
+            #dff8ff
+        );
+
+    margin-bottom:20px;
+}
+
+.feature h3{
+    margin-bottom:10px;
+}
+
+.feature p{
+    color:#788297;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+/* =========================
+   TERMINAL
+========================= */
+
+.terminal{
+    margin-top:70px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #27254a,
+            #3b3575
+        );
+
+    border-radius:30px;
+
+    padding:30px;
+
+    color:white;
+
+    box-shadow:
+        0 30px 70px rgba(66,57,140,.25);
+
+    overflow:hidden;
+}
+
+.terminal-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:25px;
+}
+
+.dots{
+    display:flex;
+    gap:7px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#fff;
+    opacity:.5;
+}
+
+.terminal-status{
+    font-size:12px;
+    color:#c9c5ff;
+}
+
+.terminal-content{
+    font-family:monospace;
+
+    font-size:14px;
+
+    line-height:2;
+}
+
+.command{
+    color:#72e8ff;
+}
+
+.success{
+    color:#77e3a7;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+    max-width:1100px;
+
+    margin:100px auto;
+
+    padding:70px 40px;
+
+    text-align:center;
+
+    border-radius:35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6758ee,
+            #3cc8ee,
+            #d965bb
+        );
+
+    color:white;
+
+    box-shadow:
+        0 35px 80px rgba(83,76,220,.25);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.cta:before{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    background:white;
+
+    opacity:.1;
+
+    border-radius:50%;
+
+    top:-150px;
+    right:-80px;
+}
+
+.cta h2{
+    font-family:"Space Grotesk";
+
+    font-size:48px;
+
+    margin-bottom:15px;
+}
+
+.cta p{
+    opacity:.9;
+
+    margin-bottom:30px;
+}
+
+.cta button{
+    padding:15px 25px;
+
+    border:none;
+
+    border-radius:13px;
+
+    background:white;
+
+    color:#5549d4;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+
+    padding:45px;
+
+    color:#8a92a5;
+
+    font-size:13px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+
+        padding-top:140px;
+
+        text-align:center;
+    }
+
+    .hero p{
+        margin:auto;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .cloud-scene{
+        height:430px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .pipeline{
+        grid-template-columns:1fr;
+    }
+
+    .pipeline:before{
+        display:none;
+    }
+
+    .architecture{
+        grid-template-columns:1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    .hero h1{
+        font-size:50px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .cloud{
+        width:280px;
+    }
+
+    .server{
+        transform:scale(.8);
+    }
+
+    .cta h2{
+        font-size:35px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+</div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        <div class="logo-icon">☁</div>
+        CloudFlow
+    </div>
+
+    <div class="nav-links">
+        <a href="#pipeline">Pipeline</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#features">Features</a>
+        <a href="#terminal">Terminal</a>
+    </div>
+
+    <button class="nav-btn" onclick="deploy()">
+        Deploy
+    </button>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div>
+
+        <div class="badge">
+            <span></span>
+            Cloud Infrastructure Online
+        </div>
+
+        <h1>
+            Build.
+            <span class="gradient-text">
+                Ship.
+            </span>
+            Scale.
+        </h1>
+
+        <p>
+            A modern DevOps platform for building applications,
+            automating deployments and managing cloud infrastructure
+            from development to production.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="primary" onclick="deploy()">
+                🚀 Deploy Project
+            </button>
+
+            <button class="secondary"
+                    onclick="document.getElementById('architecture').scrollIntoView()">
+                Explore Architecture →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CLOUD VISUAL -->
+
+    <div class="cloud-scene">
+
+        <div class="server one">
+
+            <h4>Application</h4>
+
+            <div class="server-line"></div>
+            <div class="server-line"></div>
+            <div class="server-line"></div>
+
+        </div>
+
+        <div class="server two">
+
+            <h4>Kubernetes</h4>
+
+            <div class="server-line"></div>
+            <div class="server-line"></div>
+            <div class="server-line"></div>
+
+        </div>
+
+        <div class="docker one">
+            🐳
+        </div>
+
+        <div class="docker two">
+            ⚙️
+        </div>
+
+        <div class="connection one"></div>
+        <div class="connection two"></div>
+
+        <div class="cloud"></div>
+
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="stat-icon">⚡</div>
+
+        <strong>99.9%</strong>
+
+        <small>Infrastructure uptime</small>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-icon">🚀</div>
+
+        <strong>1.8s</strong>
+
+        <small>Average deployment</small>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-icon">🌎</div>
+
+        <strong>12</strong>
+
+        <small>Cloud regions</small>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-icon">🔐</div>
+
+        <strong>24/7</strong>
+
+        <small>Security monitoring</small>
+
+    </div>
+
+</section>
+
+
+<!-- PIPELINE -->
+
+<section class="section" id="pipeline">
+
+    <div class="section-heading">
+
+        <span>Automation</span>
+
+        <h2>From Code to Cloud</h2>
+
+        <p>
+            Every commit moves through an automated
+            software delivery pipeline.
+        </p>
+
+    </div>
+
+
+    <div class="pipeline">
+
+        <div class="pipeline-card">
+
+            <div class="pipeline-icon">💻</div>
+
+            <h3>Code</h3>
+
+            <p>Developer pushes code</p>
+
+        </div>
+
+
+        <div class="pipeline-card">
+
+            <div class="pipeline-icon">🔍</div>
+
+            <h3>Test</h3>
+
+            <p>Automated testing</p>
+
+        </div>
+
+
+        <div class="pipeline-card">
+
+            <div class="pipeline-icon">🐳</div>
+
+            <h3>Build</h3>
+
+            <p>Create container image</p>
+
+        </div>
+
+
+        <div class="pipeline-card">
+
+            <div class="pipeline-icon">☸️</div>
+
+            <h3>Deploy</h3>
+
+            <p>Kubernetes deployment</p>
+
+        </div>
+
+
+        <div class="pipeline-card">
+
+            <div class="pipeline-icon">📊</div>
+
+            <h3>Monitor</h3>
+
+            <p>Observe production</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ARCHITECTURE -->
+
+<section class="section" id="architecture">
+
+    <div class="architecture">
+
+        <div class="arch-text">
+
+            <h2>
+                A complete
+                cloud-native
+                workflow.
+            </h2>
+
+            <p>
+                Connect your Git repository to CI/CD,
+                containerization and Kubernetes.
+                The architecture is designed to make
+                modern application delivery easier to understand.
+            </p>
+
+            <div class="arch-list">
+
+                <div class="arch-item">
+
+                    <div class="arch-item-icon">
+                        📦
+                    </div>
+
+                    <div>
+                        <strong>Containerized</strong>
+                        <small>Docker based application</small>
+                    </div>
+
+                </div>
+
+
+                <div class="arch-item">
+
+                    <div class="arch-item-icon">
+                        🔄
+                    </div>
+
+                    <div>
+                        <strong>Automated CI/CD</strong>
+                        <small>Continuous integration</small>
+                    </div>
+
+                </div>
+
+
+                <div class="arch-item">
+
+                    <div class="arch-item-icon">
+                        ☸️
+                    </div>
+
+                    <div>
+                        <strong>Kubernetes</strong>
+                        <small>Container orchestration</small>
+                    </div>
+
+                </div>
+
+
+                <div class="arch-item">
+
+                    <div class="arch-item-icon">
+                        📈
+                    </div>
+
+                    <div>
+                        <strong>Observability</strong>
+                        <small>Metrics and monitoring</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="arch-visual">
+
+            <div class="arch-node node-git">
+
+                🐙
+
+                <strong>Git</strong>
+
+                <small>Source Code</small>
+
+            </div>
+
+
+            <div class="arch-node node-ci">
+
+                ⚙️
+
+                <strong>CI/CD</strong>
+
+                <small>Automation</small>
+
+            </div>
+
+
+            <div class="arch-node node-k8s">
+
+                ☸️
+
+                <strong>Kubernetes</strong>
+
+                <small>Cluster</small>
+
+            </div>
+
+
+            <div class="arch-node node-cloud">
+
+                ☁️
+
+                <strong>Cloud</strong>
+
+                <small>Production</small>
+
+            </div>
+
+
+            <div class="arch-line line-one"></div>
+
+            <div class="arch-line line-two"></div>
+
+            <div class="arch-line line-three"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="section" id="features">
+
+    <div class="section-heading">
+
+        <span>Platform</span>
+
+        <h2>Everything Developers Need</h2>
+
+        <p>
+            A visual representation of a modern DevOps
+            engineering environment.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🐳
+            </div>
+
+            <h3>Docker</h3>
+
+            <p>
+                Package applications into portable
+                containers that can run consistently
+                across environments.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ☸️
+            </div>
+
+            <h3>Kubernetes</h3>
+
+            <p>
+                Manage containers, services,
+                scaling and application availability.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔄
+            </div>
+
+            <h3>CI/CD</h3>
+
+            <p>
+                Automate testing and deployment
+                whenever developers push new code.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🧩
+            </div>
+
+            <h3>Infrastructure</h3>
+
+            <p>
+                Represent cloud infrastructure as
+                repeatable configuration and code.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📊
+            </div>
+
+            <h3>Monitoring</h3>
+
+            <p>
+                Track application health and
+                infrastructure performance.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔐
+            </div>
+
+            <h3>Security</h3>
+
+            <p>
+                Integrate secure development practices
+                throughout the delivery lifecycle.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TERMINAL -->
+
+<section class="section" id="terminal">
+
+    <div class="section-heading">
+
+        <span>Developer Tools</span>
+
+        <h2>Deployment Console</h2>
+
+        <p>
+            A visual simulation of a modern deployment workflow.
+        </p>
+
+    </div>
+
+
+    <div class="terminal">
+
+        <div class="terminal-top">
+
+            <div class="dots">
+
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+
+            </div>
+
+            <div class="terminal-status">
+                ● system operational
+            </div>
+
+        </div>
+
+
+        <div class="terminal-content">
+
+            <div>
+                <span class="command">$ git push origin main</span>
+            </div>
+
+            <div class="success">
+                ✓ Repository updated
+            </div>
+
+            <div>
+                <span class="command">$ docker build -t cloudflow .</span>
+            </div>
+
+            <div class="success">
+                ✓ Docker image created
+            </div>
+
+            <div>
+                <span class="command">$ kubectl apply -f deployment.yaml</span>
+            </div>
+
+            <div class="success">
+                ✓ Kubernetes resources deployed
+            </div>
+
+            <div>
+                <span class="command">$ kubectl get pods</span>
+            </div>
+
+            <div>
+                cloudflow-api-7c8f9b → Running
+            </div>
+
+            <div>
+                cloudflow-web-4d7f21 → Running
+            </div>
+
+            <div class="success">
+                ✓ Deployment completed successfully
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+    <h2>
+        Ready to ship your next project?
+    </h2>
+
+    <p>
+        Build it. Containerize it. Automate it. Deploy it.
+    </p>
+
+    <button onclick="deploy()">
+        🚀 Start Deployment
+    </button>
+
+</section>
+
+
+<footer>
+
+    CloudFlow DevOps Platform · Built for modern engineering
+
+</footer>
+
+
+<script>
+
+/* =========================
+   DEPLOY BUTTON
+========================= */
+
+function deploy(){
+
+    const button = event?.currentTarget;
+
+    if(button){
+
+        const original = button.innerText;
+
+        button.innerText = "⏳ Deploying...";
+
+        button.style.opacity = ".7";
+
+        setTimeout(()=>{
+
+            button.innerText = "✓ Deployment Complete";
+
+            button.style.opacity = "1";
+
+            setTimeout(()=>{
+
+                button.innerText = original;
+
+            },2500);
+
+        },1800);
+
+    }
+
+}
+
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+const cards =
+document.querySelectorAll(
+    ".stat,.pipeline-card,.feature,.arch-item"
+);
+
+const observer =
+new IntersectionObserver(
+
+    entries=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+
+                entry.target.style.opacity="1";
+
+                entry.target.style.transform=
+                    "translateY(0)";
+
+            }
+
+        });
+
+    },
+
+    {
+        threshold:.15
+    }
+
+);
+
+
+cards.forEach(card=>{
+
+    card.style.opacity="0";
+
+    card.style.transform=
+        "translateY(25px)";
+
+    card.style.transition=
+        "all .7s ease";
+
+    observer.observe(card);
+
+});
+
+
+/* =========================
+   MOUSE PARALLAX
+========================= */
+
+document.addEventListener(
+    "mousemove",
+    e=>{
+
+        const x =
+            (e.clientX / window.innerWidth - .5);
+
+        const y =
+            (e.clientY / window.innerHeight - .5);
+
+        document
+            .querySelectorAll(".docker")
+            .forEach((el,i)=>{
+
+                el.style.transform =
+                    `translate(${x*(15+i*8)}px,
+                    ${y*(15+i*8)}px)`;
+
+            });
+
+    }
+);
+
+
+/* =========================
+   TERMINAL TYPING EFFECT
+========================= */
+
+const commands =
+document.querySelectorAll(
+    ".terminal-content .command"
+);
+
+commands.forEach((command,i)=>{
+
+    command.style.opacity="0";
+
+    setTimeout(()=>{
+
+        command.style.opacity="1";
+
+    },i*500);
+
+});
+
+</script>
+
+</body>
+</html>
