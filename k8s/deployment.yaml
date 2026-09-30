@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-frontend
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: devops-frontend
+
+  template:
+    metadata:
+      labels:
+        app: devops-frontend
+
+    spec:
+      containers:
+        - name: devops-frontend
+          image: ghcr.io/zain5424/devops-frontend:latest
+          ports:
+            - containerPort: 80
