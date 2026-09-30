@@ -9,14 +9,12 @@ on:
       - main
 
 jobs:
-  check:
+  docker-build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check HTML file
-        run: |
-          test -f index.html
-          echo "index.html exists"
+      - name: Build Docker image
+        run: docker build -t devops-frontend .
